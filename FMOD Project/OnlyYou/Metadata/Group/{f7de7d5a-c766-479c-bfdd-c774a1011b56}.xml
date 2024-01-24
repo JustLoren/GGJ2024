@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="MixerGroup" id="{f7de7d5a-c766-479c-bfdd-c774a1011b56}">
+		<property name="name">
+			<value>Priority Sounds</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{f028ee98-a3e9-4793-8a7e-b0651e34d212}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{fd11b286-516a-43e3-b14b-c4f233687b62}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2a27c5d4-62a5-40b4-9adb-fbaa6e9bbc9c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{f028ee98-a3e9-4793-8a7e-b0651e34d212}">
+		<relationship name="effects">
+			<destination>{cfbcf14d-26a6-463c-b916-94f74dc5c76e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{fd11b286-516a-43e3-b14b-c4f233687b62}" />
+	<object class="MixerBusFader" id="{cfbcf14d-26a6-463c-b916-94f74dc5c76e}" />
+</objects>

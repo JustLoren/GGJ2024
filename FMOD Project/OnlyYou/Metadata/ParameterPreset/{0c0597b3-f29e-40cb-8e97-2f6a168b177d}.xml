@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{0c0597b3-f29e-40cb-8e97-2f6a168b177d}">
+		<property name="name">
+			<value>Joy Level</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1f763ad7-53cf-48e3-bd66-007d896d084e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{e4f9d946-ee41-422f-97cb-377024c6cbf0}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{e4f9d946-ee41-422f-97cb-377024c6cbf0}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

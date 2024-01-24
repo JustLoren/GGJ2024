@@ -8,7 +8,7 @@ public class Character : MonoBehaviour
     private CharacterController controller;
     public float speed = 5f;
     public float rotationSpeed = 10f; // Speed of rotation
-    public Camera playerCamera; // Assign this in the Inspector
+    private Camera playerCamera; // Assign this in the Inspector
 
     void Start()
     {

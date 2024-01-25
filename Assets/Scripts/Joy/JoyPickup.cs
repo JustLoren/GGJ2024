@@ -10,16 +10,25 @@ public class JoyPickup : MonoBehaviour
     public float joyAmount = 1f;
     public float gainSpeed = 5f;
     public UnityEvent onPickup = null;
+    public bool autoPickup = true;
     private void OnTriggerEnter(Collider other)
+    {
+        if (autoPickup)
+            DoPickup(other.gameObject);
+    }
+
+    public void DoPickup(GameObject pickerUpper)
     {
         if (pickupRoutine == null)
         {
+            pickerUpper.GetComponentInParent<Character>()?.CollectJoy();
+
             pickupRoutine = StartCoroutine(DoPickup());
         }
     }
 
     private IEnumerator DoPickup()
-    {                
+    {
         onPickup?.Invoke();
         do
         {

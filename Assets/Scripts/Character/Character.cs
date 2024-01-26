@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     public float rotationSpeed = 10f; // Speed of rotation
     private Camera playerCamera;
     public Animator animator;
+    public float height => controller.height;
 
     void Start()
     {
@@ -21,6 +22,15 @@ public class Character : MonoBehaviour
     public void CollectJoy()
     {
         animator.SetTrigger("Collect");
+    }
+
+    public void Cower(GameObject target)
+    {
+        transform.LookAt(target.transform);
+        animator.SetTrigger("Cower");
+        //Update one frame to make sure the animator is in Stationary mode
+        animator.Update(Time.deltaTime);
+        Debug.Log($"[{Time.frameCount}] Forcing player to look at cower-er. Currently Stationary? {IsStationary()}");
     }
 
     void Update()
@@ -38,9 +48,8 @@ public class Character : MonoBehaviour
         if (direction.magnitude > 1f)
             direction = direction.normalized;
 
-        // Check if the current animator state has the tag "Stationary"
-        bool isStationary = animator.GetCurrentAnimatorStateInfo(0).IsTag("Stationary");
-        if (!isStationary)
+        // Check if the current animator state has the tag "Stationary"        
+        if (!IsStationary())
         {
             // Move the character
             var realSpeed = Mathf.Lerp(depressedSpeed, happySpeed, JoyMeter.Instance.currentJoy);
@@ -51,9 +60,13 @@ public class Character : MonoBehaviour
             {
                 Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+                Debug.Log($"[{Time.frameCount}] Updating rotation of player to match his movement direction");
             }
 
             DoJump();
+        } else
+        {
+            Debug.Log($"[{Time.frameCount} Player is stationary. No movement made.");
         }
 
         animator.SetFloat("Speed", direction.magnitude);
@@ -138,5 +151,22 @@ public class Character : MonoBehaviour
         controller.radius = currentRadius;
         ledgeShrinker = null;
         ledgeDuration = 0;
+    }
+
+    private bool IsStationary()
+    {
+        if (animator.IsInTransition(0))
+        {
+            AnimatorStateInfo nextStateInfo = animator.GetNextAnimatorStateInfo(0);
+            if (nextStateInfo.IsTag("Stationary"))
+            {
+                return true;
+            }
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Stationary"))
+        {
+            return true;
+        }
+        return false;
     }
 }

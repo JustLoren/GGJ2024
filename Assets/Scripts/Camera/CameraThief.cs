@@ -6,8 +6,9 @@ public class CameraThief : MonoBehaviour
 {
     public Cinemachine.CinemachineVirtualCameraBase vCam;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        CameraSwitcher.Switch(vCam);
+        if (Character.Instance.IsGrounded)
+            CameraSwitcher.Switch(vCam);
     }
 }

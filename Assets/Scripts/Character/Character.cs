@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[DefaultExecutionOrder(-1)] //Slightly before everything else
 public class Character : MonoBehaviour
 {
 
@@ -14,6 +15,7 @@ public class Character : MonoBehaviour
     public Animator animator;
     public float height => controller.height;
     public Vector3 center => transform.position + (Vector3.up * height / 2f);
+    public bool IsGrounded => isGrounded;
 
     #region Singleton shit
     public static Character Instance { get; private set; } = null;
@@ -76,7 +78,7 @@ public class Character : MonoBehaviour
             if (direction != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);                
+                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
             }
 
             DoJump();
@@ -88,7 +90,7 @@ public class Character : MonoBehaviour
     }
 
     public float jumpForce = 8f; // Initial force of the jump
-    
+
     private bool isGrounded;
     private float verticalVelocity;
     public float stickToGroundForce;
@@ -98,55 +100,60 @@ public class Character : MonoBehaviour
     private int ledgeDuration = 0;
     private int maxLedgeDuration = 5;
     void DoJump()
-    {
-        #region Jumping And Ground Check
+    {        
+        if (verticalVelocity < 0)
+        {
+            controller.Move(new Vector3(0, -.01f, 0));
+            isGrounded = controller.isGrounded;
+            if (verticalVelocity < 0 && isGrounded)
+            {
+                verticalVelocity = -.25f;
+            }
+        } 
+        else
+        {
+            isGrounded = false;
+        }
 
-        //Phsyics Check To Ground        
-        controller.Move(new Vector3(0, -.01f, 0f));
+        //Gravity
+        verticalVelocity += Physics.gravity.y * Time.deltaTime;
+
+        //Jump If The Player Is Grounded
+        if (verticalVelocity < 0 && isGrounded && Input.GetButtonDown("Jump"))
+        {
+            //This doesn't use delta time because we don't want the jump to be 
+            // different strengths based on what the framerate is.
+            verticalVelocity += jumpForce;
+        }
+
+        //Apply These Calculations To The Actual Player Controller
+        Vector3 fallVector = new Vector3(0, verticalVelocity, 0);
+        controller.Move(fallVector * Time.deltaTime);
 
         isGrounded = controller.isGrounded;
 
+        #region Ledge shenanigans
         if (isGrounded)
         {
             RaycastHit hit;
             var secondaryCheck = Physics.SphereCast(controller.transform.position, ledgeRadius, Vector3.down, out hit, (controller.height / 2f) + .1f, groundLayers.value);
             if (!secondaryCheck)
             {
-                Debug.Log($"[{Time.frameCount}] Fuck, we're on a ledge");
                 if (++ledgeDuration >= maxLedgeDuration)
                 {
                     if (ledgeShrinker == null)
                         ledgeShrinker = StartCoroutine(ShrinkController());
-                }                
-            } else
+                }
+            }
+            else
             {
                 ledgeDuration = 0;
             }
-        } else
+        }
+        else
         {
             ledgeDuration = 0;
         }
-
-        //If The Player Is On The Ground Stick To Ground And Reset Vertical Velocity
-        if (isGrounded && verticalVelocity < 0)
-        {
-            verticalVelocity = -stickToGroundForce;
-        }
-
-        //Jump If The Player Is Grounded
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            verticalVelocity += jumpForce * stickToGroundForce;
-        }
-
-        //Gravity
-        verticalVelocity += Physics.gravity.y * Time.deltaTime;
-
-        //Apply These Calculations To The Actual Player Controller
-        Vector3 fallVector = new Vector3(0, verticalVelocity, 0);
-        controller.Move(fallVector * Time.deltaTime);
-
-
         #endregion
     }
 
@@ -154,7 +161,7 @@ public class Character : MonoBehaviour
     private IEnumerator ShrinkController()
     {
         var currentRadius = controller.radius;
-        controller.radius = ledgeRadius;        
+        controller.radius = ledgeRadius;
         yield return new WaitForSeconds(.25f);
         while (controller.radius != currentRadius)
         {

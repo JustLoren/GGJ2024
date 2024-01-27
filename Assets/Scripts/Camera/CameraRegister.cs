@@ -6,7 +6,10 @@ public class CameraRegister : MonoBehaviour
 {
     private void OnEnable()
     {
-        CameraSwitcher.Register(GetComponent<Cinemachine.CinemachineVirtualCameraBase>());
+        var cam = GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
+        cam.Follow = Character.Instance.transform;
+        cam.LookAt = Character.Instance.transform;
+        CameraSwitcher.Register(cam);
     }
 
     private void OnDisable()

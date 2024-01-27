@@ -805,12 +805,13 @@ MonoBehaviour:
   happySpeed: 1.75
   rotationSpeed: 10
   animator: {fileID: 8013294428942858202}
-  jumpForce: 5.75
+  jumpForce: 4.1
   stickToGroundForce: 1
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
   ledgeRadius: 0.05
+  framerate: 120
 --- !u!114 &357414547858655596
 MonoBehaviour:
   m_ObjectHideFlags: 0

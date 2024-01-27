@@ -10,7 +10,7 @@ public class JoyMeter : MonoBehaviour
     private Dictionary<MonoBehaviour, Action<float>> watchers = new();
 
     public float currentJoy = .5f;
-    public float joyDrainRate = .05f;
+    public AnimationCurve joyDrainRate;
 
     void Awake()
     {
@@ -28,7 +28,8 @@ public class JoyMeter : MonoBehaviour
 
     void Update()
     {
-        AddJoy(-joyDrainRate * Time.deltaTime);
+        var amt = joyDrainRate.Evaluate(currentJoy);
+        AddJoy(-amt * Time.deltaTime);
     }
 
     public void AddJoy(float amt)

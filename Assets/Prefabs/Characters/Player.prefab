@@ -755,14 +755,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5812244818126264345}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.99979925, z: 0, w: -0.020035727}
+  m_LocalRotation: {x: 0, y: 0.99979925, z: 0, w: 0.020035159}
   m_LocalPosition: {x: 3.2088346, y: 0.19499993, z: -0.0909083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2401367310203802871}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 176.086, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 177.704, z: 0}
 --- !u!143 &70748501931199733
 CharacterController:
   m_ObjectHideFlags: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
   happySpeed: 1.75
   rotationSpeed: 10
   animator: {fileID: 8013294428942858202}
-  jumpForce: 7
+  jumpForce: 5.75
   stickToGroundForce: 1
   groundLayers:
     serializedVersion: 2
@@ -824,7 +824,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentJoy: 1
-  joyDrainRate: 0
+  joyDrainRate:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.001
+      inSlope: 0.02375
+      outSlope: 0.02375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.02
+      inSlope: 0.02375
+      outSlope: 0.02375
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6008267739187672509
 GameObject:
   m_ObjectHideFlags: 0

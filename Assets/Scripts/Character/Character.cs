@@ -30,7 +30,6 @@ public class Character : MonoBehaviour
         animator.SetTrigger("Cower");
         //Update one frame to make sure the animator is in Stationary mode
         animator.Update(Time.deltaTime);
-        Debug.Log($"[{Time.frameCount}] Forcing player to look at cower-er. Currently Stationary? {IsStationary()}");
     }
 
     void Update()
@@ -59,14 +58,10 @@ public class Character : MonoBehaviour
             if (direction != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-                Debug.Log($"[{Time.frameCount}] Updating rotation of player to match his movement direction");
+                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);                
             }
 
             DoJump();
-        } else
-        {
-            Debug.Log($"[{Time.frameCount} Player is stationary. No movement made.");
         }
 
         animator.SetFloat("Speed", direction.magnitude);

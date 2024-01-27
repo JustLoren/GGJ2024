@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{ea1bc162-8fc6-48df-a6ac-b920804e1fe2}">
+		<property name="assetPath">
+			<value>Voice Lines/Father/Nice 1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.0999791666666665</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f6ea7939-a9e9-434d-8ee8-68fb5aae85c0}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD Project/OnlyYou/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638416414629489049
+  lastModified: 638419009714385454
   FileSizes:
   - Name: Desktop
-    Value: 1034592
+    Value: 1199168
   Exists: 1
 --- !u!114 &-7618244644643721949
 MonoBehaviour:
@@ -118,13 +118,17 @@ MonoBehaviour:
   - {fileID: -7618244644643721949}
   - {fileID: -2728786112226197905}
   - {fileID: 6733892761803365630}
+  - {fileID: 8681098342090933310}
+  - {fileID: 5668381795271739905}
+  - {fileID: 3331516503550231946}
+  - {fileID: 6820192997906647788}
   EditorParameters:
   - {fileID: 4147361488611886773}
   MasterBanks:
   - {fileID: -7700875793372414278}
   StringsBanks:
   - {fileID: 8618989434602550273}
-  cacheTime: 638416414629502586
+  cacheTime: 638419009714405429
   cacheVersion: 131616
 --- !u!114 &1575016493761511619
 MonoBehaviour:
@@ -154,6 +158,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 29500
+--- !u!114 &3331516503550231946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Lines/Father/Father Neutral Chat
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Lines/Father/Father Neutral Chat
+  Guid:
+    Data1: -459839889
+    Data2: 1268267916
+    Data3: -738651520
+    Data4: -1258882626
+  Banks:
+  - {fileID: -7700875793372414278}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1900
 --- !u!114 &4147361488611886773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +209,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &5668381795271739905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Lines/Father/Father Insult
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Lines/Father/Father Insult
+  Guid:
+    Data1: -1764349588
+    Data2: 1149239908
+    Data3: 688655036
+    Data4: 861872521
+  Banks:
+  - {fileID: -7700875793372414278}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2600
 --- !u!114 &6733892761803365630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +263,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &6820192997906647788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Lines/Father/Father Nice Chat
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Lines/Father/Father Nice Chat
+  Guid:
+    Data1: 343207400
+    Data2: 1195810101
+    Data3: 1649335458
+    Data4: -1904148052
+  Banks:
+  - {fileID: -7700875793372414278}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2100
 --- !u!114 &8618989434602550273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,8 +305,35 @@ MonoBehaviour:
   Path: FMOD Project/OnlyYou/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638416414629502586
+  lastModified: 638419009714405429
   FileSizes:
   - Name: Desktop
-    Value: 1046
+    Value: 1256
   Exists: 1
+--- !u!114 &8681098342090933310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Lines/Father/Father Mean Chat
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Lines/Father/Father Mean Chat
+  Guid:
+    Data1: -1521658535
+    Data2: 1115245127
+    Data3: 1866310576
+    Data4: -1163333267
+  Banks:
+  - {fileID: -7700875793372414278}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2700

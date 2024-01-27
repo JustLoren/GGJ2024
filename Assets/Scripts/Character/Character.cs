@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Character : MonoBehaviour
 {
+
     private CharacterController controller;
     public float depressedSpeed = 2f;
     public float happySpeed = 5f;
@@ -12,6 +13,23 @@ public class Character : MonoBehaviour
     private Camera playerCamera;
     public Animator animator;
     public float height => controller.height;
+    public Vector3 center => transform.position + (Vector3.up * height / 2f);
+
+    #region Singleton shit
+    public static Character Instance { get; private set; } = null;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            throw new System.Exception("You can't have two characters in the scene");
+    }
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+    #endregion
 
     void Start()
     {

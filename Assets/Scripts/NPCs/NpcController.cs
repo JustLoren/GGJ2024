@@ -3,7 +3,8 @@ using UnityEngine.AI;
 
 public class NpcController : MonoBehaviour
 {
-    public Transform[] waypoints; // Array of waypoints
+    public PathNode[] waypoints; // Array of waypoints
+    private PathNode activeWaypoint = null;
     public float patrolSpeed = 2.0f;
     public float chaseSpeed = 4.0f;
     public float rotationRate = 90f;
@@ -14,6 +15,7 @@ public class NpcController : MonoBehaviour
     public Transform eyes;
     private Animator animator;
     private NavMeshAgent agent;
+    private SpeechController speech;
     private int waypointIndex = 0;
     public Character player; // Assign the player's transform in the editor or via code
 
@@ -21,6 +23,7 @@ public class NpcController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        speech = GetComponent<SpeechController>();
         agent.updateRotation = false;
 
         GoToNextWaypoint();
@@ -29,30 +32,56 @@ public class NpcController : MonoBehaviour
     void GoToNextWaypoint()
     {
         if (waypoints.Length == 0) return;
-        agent.destination = waypoints[waypointIndex].position;
+        agent.destination = waypoints[waypointIndex].transform.position;
+        activeWaypoint = waypoints[waypointIndex];
         waypointIndex = (waypointIndex + 1) % waypoints.Length;
 
         agent.speed = patrolSpeed;
         agent.isStopped = false;
+        animator.SetBool("Chasing", false);
     }
 
     void Update()
     {
         if (!IsStationary())
-        {   
+        {
             //Only when fully angry will she chase the player
             if (PlayerInSight() && anger == 1f)
             {
                 ChasePlayer();
-            } else if (agent.remainingDistance < .5f)
+            }
+            else if (agent.remainingDistance < .25f)
             {
-                GoToNextWaypoint();
+                if (activeWaypoint != null)
+                {
+                    //We trigger this waypoint
+                    if (activeWaypoint.forceRotation)
+                    {
+                        transform.rotation = activeWaypoint.transform.rotation;
+                    }
+
+                    if (activeWaypoint.idleAnimation > 0)
+                    {
+                        animator.SetInteger("Idle Action", activeWaypoint.idleAnimation);
+                        animator.Update(Time.deltaTime);
+                        animator.SetInteger("Idle Action", 0);
+                        activeWaypoint = null;
+                    }
+                }
+
+                if (!IsIdle())
+                {
+                    GoToNextWaypoint();
+                }
             }
 
-            var startingRotation = transform.rotation;
-            var desiredRotation = Quaternion.LookRotation(agent.steeringTarget - transform.position);
-            var newRotation = Quaternion.RotateTowards(startingRotation, desiredRotation, rotationRate * Time.deltaTime);
-            transform.rotation = newRotation;
+            if (!IsIdle())
+            {
+                var startingRotation = transform.rotation;
+                var desiredRotation = Quaternion.LookRotation(agent.steeringTarget - transform.position);
+                var newRotation = Quaternion.RotateTowards(startingRotation, desiredRotation, rotationRate * Time.deltaTime);
+                transform.rotation = newRotation;
+            }
 
             //While she walks around, she gets angry
             anger = Mathf.Clamp01(anger + (angerBuildRate * Time.deltaTime));
@@ -89,12 +118,15 @@ public class NpcController : MonoBehaviour
     {
         agent.speed = chaseSpeed;
         agent.destination = player.transform.position;
+        activeWaypoint = null;
+        animator.SetBool("Chasing", true);
 
         if (Vector3.Distance(transform.position, player.transform.position) < yellRange)
-        {   
+        {
             agent.isStopped = true;
             agent.ResetPath();
             animator.SetTrigger("Yell");
+            speech.Yell();
             animator.Update(Time.deltaTime);
             transform.LookAt(player.transform.position);
             player.Cower(this.gameObject);
@@ -116,6 +148,23 @@ public class NpcController : MonoBehaviour
             }
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Stationary"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsIdle()
+    {
+        if (animator.IsInTransition(0))
+        {
+            AnimatorStateInfo nextStateInfo = animator.GetNextAnimatorStateInfo(0);
+            if (nextStateInfo.IsTag("Idle"))
+            {
+                return true;
+            }
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
         {
             return true;
         }

@@ -6,7 +6,6 @@ using UnityEngine;
 [DefaultExecutionOrder(-1)] //Slightly before everything else
 public class Character : MonoBehaviour
 {
-
     private CharacterController controller;
     public float depressedSpeed = 2f;
     public float happySpeed = 5f;
@@ -22,14 +21,22 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         else
             throw new System.Exception("You can't have two characters in the scene");
     }
     private void OnDestroy()
     {
         if (Instance == this)
+        {
             Instance = null;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
     #endregion
 

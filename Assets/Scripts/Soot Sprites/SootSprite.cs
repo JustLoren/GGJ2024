@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +15,8 @@ public class SootSprite : MonoBehaviour
     public float minVelocityToRubberband = .1f;
     public float happinessToRob = .05f;
 
+    public List<Transform> targetList = new();
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,7 +28,7 @@ public class SootSprite : MonoBehaviour
         //Dead sprites don't thrust. Giggity.
         if (isDead) return;
 
-        if (JoyMeter.Instance.currentJoy > .8f)
+        if (JoyMeter.Instance?.currentJoy > .8f)
         {
             Kill();
             return;
@@ -39,7 +42,16 @@ public class SootSprite : MonoBehaviour
             ApplyThrust(Color.yellow);
         }
 
-        RotateTowardsTarget(Character.Instance.center);
+        RotateTowardsTarget(GetTargetCoordinates());
+    }
+
+    private int targetIdx;
+    private Vector3 GetTargetCoordinates()
+    {
+        if (!targetList.Any())
+            return Character.Instance.center;
+        else
+            return targetList[targetIdx].position;
     }
 
     private bool isDead = false;
@@ -57,16 +69,16 @@ public class SootSprite : MonoBehaviour
 
     private bool RubberbandToPlayer()
     {
-        return GetPlayerDirection().magnitude > maxDistance && rb.velocity.magnitude < minVelocityToRubberband;
+        return GetThrustDirection().magnitude > maxDistance && rb.velocity.magnitude < minVelocityToRubberband;
     }
-    private Vector3 GetPlayerDirection()
+    private Vector3 GetThrustDirection()
     {
-        return (Character.Instance.center) - transform.position;
+        return (GetTargetCoordinates()) - transform.position;
     }
 
     private void ApplyThrust(Color thrustColor)
     {
-        var desiredDirection = GetPlayerDirection();
+        var desiredDirection = GetThrustDirection();
 
         var distance = desiredDirection.magnitude;
 
@@ -86,7 +98,11 @@ public class SootSprite : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+        if (targetList.Any())
+        {
+            targetIdx = (targetIdx + 1) % targetList.Count;
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             Kill();
 

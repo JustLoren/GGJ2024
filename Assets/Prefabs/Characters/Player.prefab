@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 70748501931199733}
   - component: {fileID: 7570386974010220610}
   - component: {fileID: 357414547858655596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +776,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b28688243564d1448ad533e864f59f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depressedSpeed: 0.75
+  depressedSpeed: 1.25
   happySpeed: 1.75
   rotationSpeed: 10
   animator: {fileID: 8013294428942858202}
@@ -811,7 +811,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   ledgeRadius: 0.05
-  framerate: 120
 --- !u!114 &357414547858655596
 MonoBehaviour:
   m_ObjectHideFlags: 0

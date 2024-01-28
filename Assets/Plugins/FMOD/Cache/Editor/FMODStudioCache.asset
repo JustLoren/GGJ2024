@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD Project/OnlyYou/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638419009714385454
+  lastModified: 638419861664701355
   FileSizes:
   - Name: Desktop
-    Value: 1199168
+    Value: 4367680
   Exists: 1
 --- !u!114 &-7618244644643721949
 MonoBehaviour:
@@ -122,13 +122,14 @@ MonoBehaviour:
   - {fileID: 5668381795271739905}
   - {fileID: 3331516503550231946}
   - {fileID: 6820192997906647788}
+  - {fileID: 3153943221507522553}
   EditorParameters:
   - {fileID: 4147361488611886773}
   MasterBanks:
   - {fileID: -7700875793372414278}
   StringsBanks:
   - {fileID: 8618989434602550273}
-  cacheTime: 638419009714405429
+  cacheTime: 638419861664701355
   cacheVersion: 131616
 --- !u!114 &1575016493761511619
 MonoBehaviour:
@@ -158,6 +159,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 29500
+--- !u!114 &3153943221507522553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Title Screen Music
+  m_EditorClassIdentifier: 
+  Path: event:/Title Screen Music
+  Guid:
+    Data1: -703521609
+    Data2: 1326919921
+    Data3: -1939502152
+    Data4: 206078222
+  Banks:
+  - {fileID: -7700875793372414278}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 252906
 --- !u!114 &3331516503550231946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,10 +333,10 @@ MonoBehaviour:
   Path: FMOD Project/OnlyYou/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638419009714405429
+  lastModified: 638419861664701355
   FileSizes:
   - Name: Desktop
-    Value: 1256
+    Value: 1304
   Exists: 1
 --- !u!114 &8681098342090933310
 MonoBehaviour:

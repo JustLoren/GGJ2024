@@ -38,6 +38,8 @@ public class SootSprite : MonoBehaviour
         {
             ApplyThrust(Color.yellow);
         }
+
+        RotateTowardsTarget(Character.Instance.center);
     }
 
     private bool isDead = false;
@@ -90,5 +92,19 @@ public class SootSprite : MonoBehaviour
 
             JoyMeter.Instance.AddJoy(-happinessToRob);            
         }
+    }
+
+    public float lookForce = 10f;
+    public void RotateTowardsTarget(Vector3 targetPosition)
+    {
+        Vector3 directionToTarget = targetPosition - rb.position;
+        directionToTarget.Normalize();
+
+        // Calculate the rotation vector to the target
+        Vector3 rotationVector = Vector3.Cross(transform.forward, directionToTarget);
+        float angle = Vector3.Angle(transform.forward, directionToTarget);
+
+        // Apply a torque based on the angle to the target
+        rb.AddTorque(rotationVector * angle * lookForce, ForceMode.Force);
     }
 }
